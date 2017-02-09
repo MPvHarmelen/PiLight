@@ -18,7 +18,7 @@ R2         | Red 2nd bank       | GPIO 23          | red LED on bottom row
 G2         | Green 2nd bank     | GPIO 24          | green LED on bottom row
 B2         | Blue 2nd bank      | GPIO 25          | blue LED on bottom row
 A, B, C, D | Row address        | GPIO 7, 8, 9, 10 | a 4-bit row address
-OE-        | neg. Output enable | GPIO 2           | whether LEDs are on at all
+OE-        | neg. Output enable | GPIO 2           | whether the boards is on at all
 CLK        | Serial clock       | GPIO 3           | select next LED
 STR        | Strobe row data    | GPIO 4           | make LEDs show current row data
 
