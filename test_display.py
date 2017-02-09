@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+from RPi import GPIO
 import time
 
 delay = 0.000001
