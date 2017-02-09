@@ -1,5 +1,6 @@
 from RPi import GPIO
 
+GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 red1_pin = 17
 green1_pin = 18
