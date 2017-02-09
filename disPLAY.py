@@ -56,3 +56,7 @@ def set_color(red, green, blue):
     GPIO.output(red1_pin, red)
     GPIO.output(green1_pin, green)
     GPIO.output(blue1_pin, blue)
+
+
+def set_oe(oe):
+    GPIO.output(oe_pin, oe)
