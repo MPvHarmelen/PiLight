@@ -1,3 +1,4 @@
+import time
 from RPi import GPIO
 
 DELAY = 0.000001
@@ -135,7 +136,7 @@ class GPIOLEDMatrix(LEDMatrix):
             for col, color in enumerate(colors):
                 self.set_output_color(self.get_color(row, col))
                 self.clock()
-            time.sleep(self.delay)   # Why was this delay here in the first place?
+                time.sleep(self.delay)   # Why was this delay here in the first place?
 
         # Latch the memories to the LEDs
         self.set_oe(True)
@@ -147,7 +148,6 @@ class GPIOLEDMatrix(LEDMatrix):
 
 if __name__ == '__main__':
     # very light testing
-    import time
     board = GPIOLEDMatrix(PINS, DELAY, SIZE)
     board.draw()
     board.set_color(0, 0, (True,) * 3)
