@@ -55,7 +55,6 @@ class GPIOLEDMatrix(LEDMatrix):
         self.oe = 0
         self.color = (False, False, False)
 
-        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
 
         for tup_key in self.TUP_KEYS:
@@ -63,6 +62,9 @@ class GPIOLEDMatrix(LEDMatrix):
                 GPIO.setup(pin, GPIO.OUT)
         for pin_key in self.PIN_KEYS:
             GPIO.setup(self.pins[pin_key], GPIO.OUT)
+
+    def cleanup(self):
+        GPIO.cleanup()
 
     def verify_color(self, color):
         """Raise an error if this is not a legal colour"""
@@ -144,3 +146,4 @@ class GPIOLEDMatrix(LEDMatrix):
 if __name__ == '__main__':
     # very light testing
     board = GPIOLEDMatrix(PINS, SIZE)
+    board.cleanup()
