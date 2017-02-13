@@ -27,6 +27,8 @@
 *.lib
 
 # Executables
+led-matrix
+server
 *.exe
 *.out
 *.app
