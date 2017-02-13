@@ -6,9 +6,8 @@ This controller uses code from [here](https://github.com/Boomerific/rpi-rgb-led-
 
 ## Pin meanings
 
-Pins can only have a `high` or `low` value. On a 32x32 board two rows are
-controlled simultaneously. On a 16x32 board only the top row is used (we assume
-the second row is ignored.)
+Pins can only have a `high` or `low` value. On a 16x32 board two rows are
+controlled simultaneously (row `n` and row `n + 1`).
 
 Board pin  | description        | Pi pin           | baby languages
 ---------- | ------------------ | ---------------- | --------------
