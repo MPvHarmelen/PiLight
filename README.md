@@ -1,7 +1,7 @@
 # PiLight
 -----
 
-This controller uses code from [here](https://github.com/Boomerific/rpi-rgb-led-matrix). We followed [this tutorial](https://learn.adafruit.com/connecting-a-16x32-rgb-led-matrix-panel-to-a-raspberry-pi) to connect the Pi. Only one row of LEDS can be on simultaneously. More detailed explanation about the LED matrix [here](http://www.rayslogic.com/propeller/programming/AdafruitRGB/AdafruitRGB.htm)
+This controller uses code from [here](https://github.com/Boomerific/rpi-rgb-led-matrix) and the sample code from [here](http://www.linuxhowtos.org/C_C++/socket.htm). We followed [this tutorial](https://learn.adafruit.com/connecting-a-16x32-rgb-led-matrix-panel-to-a-raspberry-pi) to connect the Pi. Only one row of LEDS can be on simultaneously. More detailed explanation about the LED matrix [here](http://www.rayslogic.com/propeller/programming/AdafruitRGB/AdafruitRGB.htm)
 
 
 ## Pin meanings
