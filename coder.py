@@ -22,19 +22,22 @@ def encode(xpos, ypos, width, height, red=True, green=True, blue=True):
         raise ValueError('The height and the y-position combined should not'
                          'go over the edge of the board')
 
-    # padding
-    st = "000"
-    # x, y
-    st += bin(xpos)[2:].zfill(5)
-    st += bin(ypos)[2:].zfill(4)
-    st += bin(width)[2:].zfill(5)
-    st += bin(height)[2:].zfill(4)
-    # color
-    st += '1' if red else '0'
-    st += '1' if green else '0'
-    st += '1' if blue else '0'
-    return int(st, 2)
+    signal = 0
+    signal += xpos
+    signal <<= 4
+    signal += ypos
+    signal <<= 5
+    signal += width
+    signal <<= 4
+    signal += height
+    signal <<= 3
 
+    signal += 4 if red else 0
+    signal += 2 if green else 0
+    signal += 1 if blue else 0
+
+    return signal
+    
 def decode(bytes):
     # color
     blue = True if bytes & 1 else False
@@ -59,5 +62,5 @@ def decode(bytes):
 
 if __name__ == '__main__':
     a = encode(1, 2, 3, 4, blue=False)
-    print(bin(a))
+    print(a)
     print(decode(a))
