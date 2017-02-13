@@ -145,7 +145,9 @@ class GPIOLEDMatrix(LEDMatrix):
 
 if __name__ == '__main__':
     # very light testing
+    import time
     board = GPIOLEDMatrix(PINS, SIZE)
     board.draw()
     board.set_color(0, 0, (True,) * 3)
+    time.sleep(5)
     board.cleanup()
