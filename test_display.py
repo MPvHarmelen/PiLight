@@ -90,7 +90,7 @@ def refresh():
         # GPIO.output(oe_pin, 0)
         latch()
         GPIO.output(oe_pin, 0)
-        time.sleep(delay)
+    time.sleep(delay)
 
 
 def fill_rectangle(x1, y1, x2, y2, color):
