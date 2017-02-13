@@ -1,5 +1,6 @@
 from RPi import GPIO
 
+DELAY = 0.000001
 SIZE = (16, 32)
 PINS = {
     'rgb1': (17, 18, 22,),
@@ -42,9 +43,10 @@ class GPIOLEDMatrix(LEDMatrix):
     TUP_KEYS = ['rgb1', 'rgb2', 'row']
     PIN_KEYS = ['clock', 'latch', 'oe']
 
-    def __init__(self, pins, *args, **kwargs):
+    def __init__(self, pins, delay, *args, **kwargs):
         super(GPIOLEDMatrix, self).__init__(*args, **kwargs)
         self.pins = pins
+        self.delay = delay
         self.init_pins()
         self.reset_colors((False, False, False,))
 
@@ -133,7 +135,7 @@ class GPIOLEDMatrix(LEDMatrix):
             for col, color in enumerate(colors):
                 self.set_output_color(self.get_color(row, col))
                 self.clock()
-            # time.sleep(delay)   # Why was this delay here in the first place?
+            time.sleep(self.delay)   # Why was this delay here in the first place?
 
         # Latch the memories to the LEDs
         self.set_oe(True)
