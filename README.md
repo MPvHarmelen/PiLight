@@ -1,10 +1,8 @@
 # PiLight
 -----
 
-This controller uses code inspired from [this tutorial](https://learn.adafruit.com/connecting-a-16x32-rgb-led-matrix-panel-to-a-raspberry-pi).
-More detailed explanation [here](http://www.rayslogic.com/propeller/programming/AdafruitRGB/AdafruitRGB.htm)
+This controller uses code from [here](https://github.com/Boomerific/rpi-rgb-led-matrix). We followed [this tutorial](https://learn.adafruit.com/connecting-a-16x32-rgb-led-matrix-panel-to-a-raspberry-pi) to connect the Pi. Only one row of LEDS can be on simultaneously. More detailed explanation about the LED matrix [here](http://www.rayslogic.com/propeller/programming/AdafruitRGB/AdafruitRGB.htm)
 
-Only one row of LEDS can be on simultaneously.
 
 ## Pin meanings
 
@@ -20,14 +18,10 @@ B1         | Blue 1st bank      | GPIO 22          | blue LED on top row
 R2         | Red 2nd bank       | GPIO 23          | red LED on bottom row
 G2         | Green 2nd bank     | GPIO 24          | green LED on bottom row
 B2         | Blue 2nd bank      | GPIO 25          | blue LED on bottom row
-A, B, C, D | Row address        | GPIO 7, 8, 9, 10 | a 4-bit row address
+A, B, C    | Row address        | GPIO 7, 8, 9     | a 3-bit address of the row that is on
 OE-        | neg. Output enable | GPIO 2           | whether the boards is on at all
-CLK        | Serial clock       | GPIO 3           | select next LED
+CLK        | Serial clock       | GPIO 3           | shift all the RGB values once and give the first LED the selected colours
 STR        | Strobe row data    | GPIO 4           | make LEDs show current row data
-
-is | this | a
---- | --- | ---
-working | table? |
 
 ## Protocol
 rectangle (xpos, ypos, xsize, ysize)
