@@ -1,25 +1,16 @@
+import sys
 import socket
 import argparse
 
 
-def send_msg(ip, port, message):
-    # Connect to the server
+def send_msg(ip, port, msg):
+    HOST, PORT = "localhost", 50007
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print(type(ip))
-    print(type(port))
     s.connect((ip, port))
-
-    # Send the data
-    print("Sending: {}".format(message))
-    len_sent = s.send(message.encode())
-
-    # Receive a response
-    response = s.recv(len_sent)
-    dec_response = response.decode()
-    print("Received: {}".format(dec_response))
-
-    # Clean up
-    s.close()
+    print("Step 1")
+    s.send(msg.encode())
+    print("Step 2")
+    print(str(s.recv(1000)))
 
 
 if __name__ == '__main__':
