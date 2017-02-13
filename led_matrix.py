@@ -1,3 +1,13 @@
+"""
+DEPRECATED
+
+This code doesn't work, because it assumes the LED board has a memory for all
+the LEDs. Yet it does not. The LED matrix only has memory banks for two rows,
+which means only two rows can be lit simultaneously at any time. Thus scanning
+through the different rows is necessary. However this code doesn't and will be
+too slow (because it is Python).
+"""
+
 import time
 from RPi import GPIO
 
@@ -6,7 +16,7 @@ SIZE = (16, 32)
 PINS = {
     'rgb1': (17, 18, 22,),
     'rgb2': (23, 24, 25,),
-    'row': (7, 8, 9, 10),
+    'row': (7, 8, 9),
     'clock': 3,
     'latch': 4,
     'oe': 2,
