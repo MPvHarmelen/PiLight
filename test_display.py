@@ -78,8 +78,8 @@ def set_color_bottom(color):
 
 
 def refresh():
+    GPIO.output(oe_pin, 1)
     for row in range(8):
-        GPIO.output(oe_pin, 1)
         set_color_top(0)
         set_row(row)
         # time.sleep(delay)
@@ -89,7 +89,7 @@ def refresh():
             clock()
         # GPIO.output(oe_pin, 0)
         latch()
-        GPIO.output(oe_pin, 0)
+    GPIO.output(oe_pin, 0)
     time.sleep(delay)
 
 
