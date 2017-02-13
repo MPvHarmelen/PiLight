@@ -2,6 +2,9 @@
 -----
 
 This controller uses code inspired from [this tutorial](https://learn.adafruit.com/connecting-a-16x32-rgb-led-matrix-panel-to-a-raspberry-pi).
+More detailed explanation [here](http://www.rayslogic.com/propeller/programming/AdafruitRGB/AdafruitRGB.htm)
+
+Only one row of LEDS can be on simultaneously.
 
 ## Pin meanings
 
