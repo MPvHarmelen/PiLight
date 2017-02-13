@@ -149,5 +149,5 @@ if __name__ == '__main__':
     board = GPIOLEDMatrix(PINS, SIZE)
     board.draw()
     board.set_color(0, 0, (True,) * 3)
-    time.sleep(5)
+    time.sleep(15)
     board.cleanup()
