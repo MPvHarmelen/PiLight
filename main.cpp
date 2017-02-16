@@ -38,6 +38,28 @@ public:
   }
 };
 
+class SimpleSquare : public RGBMatrixManipulator {
+public:
+  SimpleSquare(RGBMatrix *m) : RGBMatrixManipulator(m) {}
+  void Run() {
+    const int width = matrix_->width();
+    const int height = matrix_->height();
+    // Diagonaly
+    for (int x = 0; x < width; ++x) {
+        matrix_->SetPixel(x, x, 255, 255, 255);
+        matrix_->SetPixel(height -1 - x, x, 255, 0, 255);
+    }
+    for (int x = 0; x < width; ++x) {
+      matrix_->SetPixel(x, 0, 255, 0, 0);
+      matrix_->SetPixel(x, height - 1, 255, 255, 0);
+    }
+    for (int y = 0; y < height; ++y) {
+      matrix_->SetPixel(0, y, 0, 0, 255);
+      matrix_->SetPixel(width - 1, y, 0, 255, 0);
+    }
+  }
+};
+
 // -- The following are demo image generators.
 int main(int argc, char *argv[]) {
     std::cout << "Starting the LED controller" << '\n';
@@ -48,17 +70,18 @@ int main(int argc, char *argv[]) {
         return 1;
 
     RGBMatrix m(&io);
+    RGBMatrixManipulator *image_gen = new SimpleSquare(&m);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
     serv->Start(5);
-    m.SetPixel(0, 0, 15, 15, 15);
-    m.UpdateScreen();
+    image_gen->Start();
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
     getchar();
-
+    std::cout << "Stopping server.." << '\n';
     // Stopping threads and wait for them to join.
     delete updater;
+    delete image_gen;
 
     // Final thing before exit: clear screen and update once, so that
     // we don't have random pixels burn
