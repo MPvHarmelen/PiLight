@@ -12,10 +12,11 @@ def send_msg(ip, port, cmd):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Connecting to {}:{}".format(ip, port))
     s.connect((ip, port))
-    print(msg.to_bytes(4, byteorder='big'))
-    # s.send(msg.to_bytes(4, byteorder='big'))
-    s.send(str(msg).encode())
-    print("Sent {}; Waiting for answer..".format(msg))
+    message = msg.to_bytes(4, byteorder='big')
+    message += message
+    print(message)
+    s.send(b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff')
+    print("Sent {}; Waiting for answer..".format(message))
     print(str(s.recv(1000)))
 
 
