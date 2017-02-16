@@ -12,7 +12,35 @@
 
 #define BUFF_SIZE 16
 
-class LedServer : public Thread{
+struct Square {
+    // x
+    // y
+    // w
+    // h
+    // colours
+    // unsigned offset:2;
+    unsigned blue:KPWMBITS;
+    unsigned green:KPWMBITS;
+    unsigned red:KPWMBITS;
+    unsigned height:4;
+    unsigned width:5;
+    unsigned y_pos:4;
+    unsigned x_pos:5;
+};
+
+struct Message {
+    char fourth;
+    char third;
+    char second;
+    char first;
+}
+
+union EnDecode {
+    Square square;
+    Message message;
+};
+
+class LedServer : public Thread {
 private:
     // Sockets
     int sockfd, newsockfd;
