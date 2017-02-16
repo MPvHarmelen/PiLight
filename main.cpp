@@ -51,6 +51,7 @@ int main(int argc, char *argv[]) {
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
     serv->Start(5);
+    m.SetPixel(0, 0, 1, 1, 1);
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
     getchar();
