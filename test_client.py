@@ -13,8 +13,8 @@ def send_msg(ip, port, cmd):
     print("Connecting to {}:{}".format(ip, port))
     s.connect((ip, port))
     print(msg.to_bytes(4, byteorder='big'))
-    print(msg.to_bytes(4, byteorder='little'))
-    s.send(msg.to_bytes(4, byteorder='little'))
+    # s.send(msg.to_bytes(4, byteorder='big'))
+    s.send(str(msg).encode())
     print("Sent {}; Waiting for answer..".format(msg))
     print(str(s.recv(1000)))
 
