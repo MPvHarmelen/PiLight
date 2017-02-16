@@ -1,7 +1,11 @@
-def encode(xpos, ypos, width, height, red=True, green=True, blue=True):
+def encode(xpos, ypos, width, height, red=True, green=True, blue=True,
+           color_bits=4):
     """
     Given the position and color of the leds, encodes this information in an
     int of 3 bytes, which can be decoded using decode
+
+    0 <= xpos <= 31: 5 bits
+    0 <= ypos <= 16: 4 bits
     """
 
     # input validation first
@@ -24,43 +28,63 @@ def encode(xpos, ypos, width, height, red=True, green=True, blue=True):
 
     signal = 0
     signal += xpos
-    signal <<= 4
+    signal <<= 4    # size of ypos
     signal += ypos
-    signal <<= 5
+    signal <<= 5    # size of width
     signal += width
-    signal <<= 4
+    signal <<= 4    # size of height
     signal += height
-    signal <<= 3
 
-    signal += 4 if red else 0
-    signal += 2 if green else 0
-    signal += 1 if blue else 0
+    signal <<= color_bits    # size of colour bits
+    signal += encode_color(red, color_bits)
+    signal <<= color_bits    # size of colour bits
+    signal += encode_color(green, color_bits)
+    signal <<= color_bits    # size of colour bits
+    signal += encode_color(blue, color_bits)
 
     return signal
-    
-def decode(bytes):
-    # color
-    blue = True if bytes & 1 else False
-    bytes >>= 1
-    green = True if bytes & 1 else False
-    bytes >>= 1
-    red = True if bytes & 1 else False
-    bytes >>= 1
+
+
+def encode_color(color, n_bits):
+    """
+    If color is given as boolean, interpret it as maximally on or totally off.
+    Otherwise check whether it fits within the number of bits.
+    """
+    if isinstance(color, bool):
+        return (2 ** n_bits - 1) * color
+    elif 0 <= color < 2 ** n_bits:
+        return color
+    else:
+        raise ValueError(
+            "`color` should be a boolean or be between 0 and 2 ** n_bits - 1"
+        )
+
+
+def decode(signal, color_bits=4):
+    # colour
+    blue = signal & (2 ** color_bits - 1)
+    signal >>= color_bits
+    green = signal & (2 ** color_bits - 1)
+    signal >>= color_bits
+    red = signal & (2 ** color_bits - 1)
+    signal >>= color_bits
 
     # height and width
-    height = bytes & 2**4-1
-    bytes >>= 4
-    width = bytes & 2**5-1
-    bytes >>= 5
+    height = signal & 2**4-1
+    signal >>= 4
+    width = signal & 2**5-1
+    signal >>= 5
 
     # position
-    ypos = bytes & 2**4-1
-    bytes >>= 4
-    xpos = bytes & 2**5-1
+    ypos = signal & 2**4-1
+    signal >>= 4
+    xpos = signal & 2**5-1
 
     return xpos, ypos, width, height, red, green, blue
 
+
 if __name__ == '__main__':
-    a = encode(1, 2, 3, 4, blue=False)
+    a = encode(4, 5, 5, 8, blue=1)
     print(a)
+    print('{:b}.'.format(a))
     print(decode(a))
