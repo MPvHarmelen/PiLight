@@ -50,32 +50,3 @@ void LedServer::error(const char *msg)
     perror(msg);
     exit(1);
 }
-
-//
-// int main(int argc, char const *argv[]) {
-//     // Init server
-//     LedServer serv(50007);
-//     // Init led board
-//     GPIO io;
-//     if (!io.Init())
-//       return 1;
-//     RGBMatrix m(&io);
-//     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
-//     updater->Start(10);  // high priority
-//
-//     // Things are set up. Just wait for <RETURN> to be pressed.
-//     printf("Press <RETURN> to exit and reset LEDs\n");
-//     getchar();
-//
-//     // Stopping threads and wait for them to join.
-//     delete updater;
-//
-//     // Final thing before exit: clear screen and update once, so that
-//     // we don't have random pixels burn
-//     m.ClearScreen();
-//     m.UpdateScreen();
-//
-//     serv.run();
-//
-//     return 0;
-// }

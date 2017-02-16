@@ -42,7 +42,7 @@ public:
 int main(int argc, char *argv[]) {
     std::cout << "Starting the LED controller" << '\n';
     // Init server
-    LedServer serv(50007);
+    LedServer *serv = new LedServer(50007);
     GPIO io;
     if (!io.Init())
         return 1;
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     RGBMatrix m(&io);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
-    serv.Run();
+    serv->Start(5);
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
     getchar();
