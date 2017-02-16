@@ -33,7 +33,7 @@ void LedServer::Run() {
         int n = read(newsockfd, buffer, BUFF_SIZE);
         if (n < 0)
             error("ERROR reading from socket");
-        std::bitset<32> bits(*buffer);
+        std::bitset<BUFF_SIZE * 8> bits(*buffer);
         std::cout << "Received bits: " << bits << '\n';
         printf("Here is the message: %u\n", (unsigned)*buffer);
         n = write(newsockfd,"I got your message",18);
