@@ -1,5 +1,7 @@
 #include "LedServer.h"
 #include <bitset>
+#include <sstream>
+
 
 LedServer::LedServer(int portno) : running_(true) {
     // Setup server
@@ -23,20 +25,26 @@ void LedServer::Run() {
     std::cout << "Running on: " << name << '\n';
     while (running_) {
         socklen_t clilen;
-        unsigned *buffer;
+        // 4 bytes from this pointer
+        char buffer[BUFF_SIZE];
         listen(sockfd, 5);
         clilen = sizeof(cli_addr);
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0)
             error("ERROR on accept");
-        bzero(buffer, 4);
-        int n = read(newsockfd, buffer, 3);
+        // Make buffer all 0
+        bzero(buffer, BUFF_SIZE);
+        // Read in max BUFF_SIZE bytes into buffer
+        int n = read(newsockfd, buffer, BUFF_SIZE);
         if (n < 0)
             error("ERROR reading from socket");
-        std::bitset<4 * 8> bits(*buffer);
-        std::cout << "Received bits: " << bits << '\n';
-        // printf("Here is the message in string: %s\n", buffer);
-        printf("Here is the message in unsigned: %u\n", (unsigned)*buffer);
+
+        EnDecode data;
+        data.message.first = buffer[0];
+        data.message.second = buffer[1];
+        data.message.third = buffer[2];
+        data.message.fourth = buffer[3];
+        std::cout << "x_pos: " << data.square.x_pos << " y_pos: "<< data.square.y_pos << " width: " << data.square.width << " height: " << data.square.height << '\n';
         n = write(newsockfd,"I got your message",18);
         if (n < 0)
             error("ERROR writing to socket");

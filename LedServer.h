@@ -10,7 +10,7 @@
 #include "led-matrix.h"
 #include "thread.h"
 
-#define BUFF_SIZE 16
+#define BUFF_SIZE 4
 
 struct Square {
     // x
@@ -33,7 +33,7 @@ struct Message {
     char third;
     char second;
     char first;
-}
+};
 
 union EnDecode {
     Square square;
