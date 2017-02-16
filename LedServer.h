@@ -28,9 +28,16 @@ struct Square {
     unsigned x_pos:5;
 };
 
+struct Message {
+    char fourth;
+    char third;
+    char second;
+    char first;
+}
+
 union EnDecode {
     Square square;
-    char message[4];
+    Message message;
 };
 
 class LedServer : public Thread {
