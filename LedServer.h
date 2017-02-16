@@ -46,10 +46,12 @@ private:
     int sockfd, newsockfd;
     // Client address, filled by accept()
     int cli_addr;
+    // LED Matrix
+    RGBMatrix *const matrix;
 
 public:
     // Constructor
-    LedServer(int portno);
+    LedServer(int portno, RGBMatrix* matrix);
     //
     void Run();
     virtual ~LedServer();

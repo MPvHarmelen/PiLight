@@ -3,7 +3,7 @@
 #include <sstream>
 
 
-LedServer::LedServer(int portno) : running_(true) {
+LedServer::LedServer(int portno, RGBMatrix* matrix) : matrix(matrix), running_(true){
     // Setup server
     struct sockaddr_in serv_addr;
     // S U C C _ S T R E A M
@@ -45,6 +45,7 @@ void LedServer::Run() {
         data.message.third = buffer[2];
         data.message.fourth = buffer[3];
         std::cout << "x_pos: " << data.square.x_pos << " y_pos: "<< data.square.y_pos << " width: " << data.square.width << " height: " << data.square.height << '\n';
+
         n = write(newsockfd,"I got your message",18);
         if (n < 0)
             error("ERROR writing to socket");

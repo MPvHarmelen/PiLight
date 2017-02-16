@@ -51,7 +51,6 @@ public:
 int main(int argc, char *argv[]) {
     std::cout << "Starting the LED controller" << '\n';
     // Init server
-    LedServer *serv = new LedServer(50007);
     GPIO io;
     if (!io.Init())
         return 1;
@@ -59,6 +58,7 @@ int main(int argc, char *argv[]) {
     RGBMatrix m(&io);
     // SimpleSquare *image_gen = new SimpleSquare(&m);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
+    LedServer *serv = new LedServer(50007, &m);
     updater->Start(10);  // high priority
     serv->Start(5);
     m.SetPixel(1,1,0,15,0);
