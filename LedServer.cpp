@@ -30,7 +30,7 @@ void LedServer::Run() {
         if (newsockfd < 0)
             error("ERROR on accept");
         bzero(buffer, 4);
-        int n = read(newsockfd, buffer, 4);
+        int n = read(newsockfd, buffer, 3);
         if (n < 0)
             error("ERROR reading from socket");
         std::bitset<4 * 8> bits(*buffer);
