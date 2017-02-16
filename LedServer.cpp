@@ -22,7 +22,7 @@ void LedServer::Run() {
     std::cout << "Running on: " << name << '\n';
     while (running_) {
         socklen_t clilen;
-        int *buffer;
+        char buffer[BUFF_SIZE];
         listen(sockfd, 5);
         clilen = sizeof(cli_addr);
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
@@ -32,7 +32,7 @@ void LedServer::Run() {
         int n = read(newsockfd, buffer, 255);
         if (n < 0)
             error("ERROR reading from socket");
-        printf("Here is the message: %d\n", *buffer);
+        printf("Here is the message: %d\n", (int)buffer);
         n = write(newsockfd,"I got your message",18);
         if (n < 0)
             error("ERROR writing to socket");
