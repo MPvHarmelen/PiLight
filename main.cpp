@@ -42,21 +42,8 @@ class SimpleSquare : public RGBMatrixManipulator {
 public:
   SimpleSquare(RGBMatrix *m) : RGBMatrixManipulator(m) {}
   void Run() {
-    const int width = matrix_->width();
-    const int height = matrix_->height();
     // Diagonaly
-    for (int x = 0; x < width; ++x) {
-        matrix_->SetPixel(x, x, 255, 255, 255);
-        matrix_->SetPixel(height -1 - x, x, 255, 0, 255);
-    }
-    for (int x = 0; x < width; ++x) {
-      matrix_->SetPixel(x, 0, 255, 0, 0);
-      matrix_->SetPixel(x, height - 1, 255, 255, 0);
-    }
-    for (int y = 0; y < height; ++y) {
-      matrix_->SetPixel(0, y, 0, 0, 255);
-      matrix_->SetPixel(width - 1, y, 0, 255, 0);
-    }
+    matrix_->SetPixel(1, 1, 0, 0, 255);
   }
 };
 
