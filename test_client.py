@@ -1,7 +1,8 @@
 import sys
 import socket
+import ctypes
 import argparse
-from coder import encode
+from coder import encode, decode
 
 
 def send_msg(ip, port, cmd):
@@ -11,8 +12,8 @@ def send_msg(ip, port, cmd):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Connecting to {}:{}".format(ip, port))
     s.connect((ip, port))
-    print(msg.to_bytes(4, byteorder='big'))
-    s.send(msg.to_bytes(4, byteorder='big'))
+    message = msg.to_bytes(4, byteorder='big')
+    s.send(message)
     print("Sent {}; Waiting for answer..".format(msg))
     print(str(s.recv(1000)))
 
