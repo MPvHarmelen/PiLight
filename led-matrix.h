@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include "gpio.h"
+#define KPWMBITS 4
 
 class RGBMatrix {
  public:
@@ -22,7 +23,6 @@ class RGBMatrix {
   // thread.
   void UpdateScreen();
 
-
 private:
   GPIO *const io_;
 
@@ -30,7 +30,7 @@ private:
     kDoubleRows = 8,     // Physical constant of the used board.
     kChainedBoards = 1,   // Number of boards that are daisy-chained.
     kColumns = kChainedBoards * 32,
-    kPWMBits = 4          // maximum PWM resolution.
+    kPWMBits = KPWMBITS          // maximum PWM resolution.
   };
 
   union IoBits {
