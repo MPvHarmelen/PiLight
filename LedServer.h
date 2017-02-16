@@ -10,7 +10,7 @@
 #include "led-matrix.h"
 #include "thread.h"
 
-#define BUFF_SIZE 4
+#define BUFF_SIZE 256
 
 class LedServer : public Thread{
 private:
