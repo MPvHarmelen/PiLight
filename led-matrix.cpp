@@ -63,7 +63,7 @@ RGBMatrix::RGBMatrix(GPIO *io) : io_(io) {
   b.bits.r1 = b.bits.g1 = b.bits.b1 = 1;
   b.bits.r2 = b.bits.g2 = b.bits.b2 = 1;
   b.bits.row = 0x7; // 8 rows, 0-based
-  
+
   // Initialize outputs, make sure that all of these are supported bits.
   const uint32_t result = io_->InitOutputs(b.raw);
   assert(result == b.raw);
@@ -80,15 +80,9 @@ void RGBMatrix::SetPixel(uint8_t x, uint8_t y,
   if (x >= width() || y >= height()) return;
 
   // My setup: A single panel connected  [>] 16 rows & 32 columns.
-  
+
   // TODO: re-map values to be luminance corrected (sometimes called 'gamma').
   // Ideally, we had like 10PWM bits for this, but we're too slow for that :/
-  
-  // Scale to the number of bit planes we actually have, so that MSB matches
-  // MSB of PWM.
-  red   >>= 8 - kPWMBits;
-  green >>= 8 - kPWMBits;
-  blue  >>= 8 - kPWMBits;
 
   for (int b = 0; b < kPWMBits; ++b) {
     uint8_t mask = 1 << b;
@@ -114,7 +108,7 @@ void RGBMatrix::UpdateScreen() {
   IoBits row_mask;
   row_mask.bits.row = 0x7;  // 8 rows, 0-based
 
-  IoBits clock, output_enable, strobe;    
+  IoBits clock, output_enable, strobe;
   clock.bits.clock = 1;
   output_enable.bits.output_enable = 1;
   strobe.bits.strobe = 1;
