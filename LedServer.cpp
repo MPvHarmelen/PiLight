@@ -17,6 +17,9 @@ LedServer::LedServer(int portno) : running_(true) {
 }
 
 void LedServer::Run() {
+    char name[128];
+    gethostname(name, sizeof name);
+    std::cout << "Running on: " << name << '\n';
     while (running_) {
         socklen_t clilen;
         char buffer[BUFF_SIZE];
