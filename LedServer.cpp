@@ -23,19 +23,19 @@ void LedServer::Run() {
     std::cout << "Running on: " << name << '\n';
     while (running_) {
         socklen_t clilen;
-        char buffer[BUFF_SIZE];
+        unsigned *buffer;
         listen(sockfd, 5);
         clilen = sizeof(cli_addr);
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0)
             error("ERROR on accept");
-        bzero(buffer, BUFF_SIZE);
-        int n = read(newsockfd, buffer, BUFF_SIZE * 8);
+        bzero(buffer, 4);
+        int n = read(newsockfd, buffer, 4);
         if (n < 0)
             error("ERROR reading from socket");
-        std::bitset<BUFF_SIZE * 8> bits(*buffer);
+        std::bitset<4 * 8> bits(*buffer);
         std::cout << "Received bits: " << bits << '\n';
-        printf("Here is the message in string: %s\n", buffer);
+        // printf("Here is the message in string: %s\n", buffer);
         printf("Here is the message in unsigned: %u\n", (unsigned)*buffer);
         n = write(newsockfd,"I got your message",18);
         if (n < 0)
