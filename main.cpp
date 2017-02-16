@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     RGBMatrix m(&io);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
-    serv->Run();
+    serv.Run();
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
     getchar();
