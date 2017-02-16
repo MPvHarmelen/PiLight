@@ -1,4 +1,5 @@
 #include "LedServer.h"
+#include <bitset>
 
 LedServer::LedServer(int portno) : running_(true) {
     // Setup server
@@ -32,7 +33,9 @@ void LedServer::Run() {
         int n = read(newsockfd, buffer, 255);
         if (n < 0)
             error("ERROR reading from socket");
-        printf("Here is the message: %u\n", (unsigned)buffer);
+        bitset<32> bits(buffer);
+        std::cout << "Received bits: " << bits << '\n';
+        // printf("Here is the message: %u\n", (unsigned)buffer);
         n = write(newsockfd,"I got your message",18);
         if (n < 0)
             error("ERROR writing to socket");
