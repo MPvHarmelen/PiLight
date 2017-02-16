@@ -57,18 +57,17 @@ int main(int argc, char *argv[]) {
         return 1;
 
     RGBMatrix m(&io);
-    SimpleSquare *image_gen = new SimpleSquare(&m);
+    // SimpleSquare *image_gen = new SimpleSquare(&m);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
     serv->Start(5);
-    image_gen->Start();
+    m.SetPixel(1,1,0,255,0);
     // Things are set up. Just wait for <RETURN> to be pressed.
     printf("Press <RETURN> to exit and reset LEDs\n");
     getchar();
     std::cout << "Stopping server.." << '\n';
     // Stopping threads and wait for them to join.
     delete updater;
-    delete image_gen;
 
     // Final thing before exit: clear screen and update once, so that
     // we don't have random pixels burn
