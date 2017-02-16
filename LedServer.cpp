@@ -44,9 +44,40 @@ void LedServer::Run() {
         data.message.second = buffer[1];
         data.message.third = buffer[2];
         data.message.fourth = buffer[3];
-        std::cout << "x_pos: " << data.square.x_pos << " y_pos: "<< data.square.y_pos << " width: " << data.square.width << " height: " << data.square.height << '\n';
+        // Square s = data.square;
+        std::cout << "x_pos: " << data.square.x_pos << '\n';
+        std::cout << " y_pos: "<< data.square.y_pos << '\n';
+        std::cout << " width: " << data.square.width << '\n';
+        std::cout << " height: " << data.square.height << '\n';
+        std::cout << " red: " << data.square.red << '\n';
+        std::cout << " green: " << data.square.green << '\n';
+        std::cout << " blue: " << data.square.blue << '\n';
 
-        n = write(newsockfd,"I got your message",18);
+        for (int w = 0; w < data.square.width; ++w)
+        {
+            for (int h = 0; h < data.square.height; ++h)
+            {
+                matrix->SetPixel(
+                    data.square.x_pos + w,
+                    data.square.y_pos + h,
+                    data.square.red,
+                    data.square.green,
+                    data.square.blue
+                );
+            }
+        }
+
+        std::string answer = "I got your "
+            + std::to_string(data.square.width)
+            + "x"
+            + std::to_string(data.square.height)
+            + " square!";
+
+        n = write(
+            newsockfd,
+            &answer,
+            18
+        );
         if (n < 0)
             error("ERROR writing to socket");
     }
