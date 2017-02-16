@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
         return 1;
 
     RGBMatrix m(&io);
-    RGBMatrixManipulator *image_gen = new SimpleSquare(&m);
+    SimpleSquare *image_gen = new SimpleSquare(&m);
     RGBMatrixManipulator *updater = new DisplayUpdater(&m);
     updater->Start(10);  // high priority
     serv->Start(5);
