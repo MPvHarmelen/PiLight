@@ -1,5 +1,5 @@
 CFLAGS=-Wall -O3 -g
-CXXFLAGS=-Wall -O3 -g
+CXXFLAGS=-Wall -O3 -g -std=c++11
 S_OBJECTS=main.o gpio.o led-matrix.o thread.o LedServer.o
 S_BINARIES=server
 LDFLAGS=-lrt -lm -lpthread

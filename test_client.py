@@ -15,7 +15,10 @@ def send_msg(ip, port, cmd):
     message = msg.to_bytes(4, byteorder='big')
     s.send(message)
     print("Sent {}; Waiting for answer..".format(msg))
-    print(str(s.recv(1000)))
+    resp = s.recv(1000)
+    # TODO: decode the message received from the server
+    print(resp)
+    print(resp.decode(errors='replace'))
 
 
 if __name__ == '__main__':

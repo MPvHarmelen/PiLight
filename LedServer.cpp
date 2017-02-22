@@ -25,7 +25,6 @@ void LedServer::Run() {
     std::cout << "Running on: " << name << '\n';
     while (running_) {
         socklen_t clilen;
-        // 4 bytes from this pointer
         char buffer[BUFF_SIZE];
         listen(sockfd, 5);
         clilen = sizeof(cli_addr);
@@ -67,17 +66,13 @@ void LedServer::Run() {
             }
         }
 
-        std::string answer = "I got your "
+        std::string answer("I got your "
             + std::to_string(data.square.width)
             + "x"
             + std::to_string(data.square.height)
-            + " square!";
-
-        n = write(
-            newsockfd,
-            &answer,
-            18
-        );
+            + " square!");
+        std::cout << "Sending: " << answer << '\n';
+        n = write(newsockfd, &answer, answer.size());
         if (n < 0)
             error("ERROR writing to socket");
     }
